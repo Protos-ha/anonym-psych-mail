@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Анонимная психологическая почта</title>
+    <style>
+        /* Это стили, чтобы сайт выглядел красиво */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f7f6; /* Светлый фон */
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: #fff; /* Белый блок */
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            max-width: 700px;
+            width: 100%;
+            text-align: center;
+        }
+        h1 {
+            color: #2c3e50; /* Темный заголовок */
+            margin-bottom: 15px;
+            font-size: 2.2em;
+        }
+        p {
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 25px;
+        }
+        .form-container {
+            margin-top: 30px;
+            text-align: center; /* Кнопка будет по центру */
+        }
+        button {
+            background-color: #3498db; /* Синяя кнопка */
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #2980b9; /* Цвет кнопки при наведении */
+        }
+        .instructions {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #ecf0f1;
+            border-radius: 8px;
+            text-align: left;
+            font-size: 0.95em;
+            color: #7f8c8d;
+        }
+        .instructions ul {
+            padding-left: 20px;
+        }
+        .instructions li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Добро пожаловать!</h1>
+        <p>
+            Здесь вы можете поделиться своими мыслями, переживаниями или задать вопросы.
+            Ваша личность будет сохранена в тайне.
+        </p>
+
+        <div class="form-container">
+            <!-- Это кнопка, которая откроет Яндекс Форму -->
+            <button id="openFormBtn">Написать анонимное письмо</button>
+        </div>
+
+        <div class="instructions">
+            <h3>Как это работает:</h3>
+            <ul>
+                <li>Нажмите на кнопку "Написать анонимное письмо", чтобы перейти к форме.</li>
+                <li>Введите желаемый <strong>никнейм</strong> (он будет виден мне).</li>
+                <li>Напишите свое <strong>письмо</strong>.</li>
+                <li>Нажмите "Отправить".</li>
+                <li>Я получу ваше письмо на свою почту и постараюсь ответить вам, если это будет необходимо (ответ также будет анонимным).</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Этот скрипт делает так, чтобы кнопка открывала Яндекс Форму
+        document.getElementById('openFormBtn').addEventListener('click', function() {
+            // !!! ВАЖНО: Замени 'URL_ЯНДЕКС_ФОРМЫ_ДЛЯ_ССЫЛКИ' на ту ссылку, которую ты скопировал из Яндекс Форм !!!
+            window.open('https://forms.yandex.ru/u/6914d45f95add53f7d703272', '_blank');
+        });
+    </script>
+</body>
+</html>
