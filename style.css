@@ -485,15 +485,13 @@ body {
 
 .modal-content {
     text-align: center;
-    /* Убедимся, что iframe может расширяться */
-    height: 100%;
+    height: 100%; /* Чтобы iframe мог занимать всю высоту */
 }
 
 .modal-content iframe {
     border: none;
     border-radius: 8px; /* Скругленные углы у iframe */
     width: 100%; /* iframe будет на всю ширину окна */
-    /* Высота iframe будет регулироваться JS, или можно оставить фиксированную */
     height: 600px; /* Базовая высота, может быть переопределена JS */
     display: block; /* Убирает лишнее пространство под iframe */
 }
