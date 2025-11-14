@@ -18,6 +18,7 @@
     --shadow-medium: rgba(0, 0, 0, 0.12);
     --shadow-strong: rgba(0, 0, 0, 0.15);
     --hero-overlay-color: rgba(140, 160, 180, 0.3); /* Мягкий наложенный цвет */
+    --modal-overlay-color: rgba(44, 62, 80, 0.8); /* Темный фон модального окна */
 }
 
 /* --- Общие стили --- */
@@ -443,6 +444,89 @@ body {
     font-weight: 300;
 }
 
+/* --- Модальное окно (Popup) --- */
+.modal-overlay {
+    display: none; /* Скрыто по умолчанию */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--modal-overlay-color); /* Темный фон */
+    z-index: 100;
+    backdrop-filter: blur(8px); /* Размытие фона */
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.modal-window {
+    display: none; /* Скрыто по умолчанию */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--white-color);
+    padding: 40px; /* Больше отступов */
+    border-radius: 15px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    z-index: 101;
+    width: 90%;
+    max-width: 700px; /* Максимальная ширина */
+    max-height: 90vh; /* Максимальная высота */
+    overflow-y: auto; /* Прокрутка, если контент не влезает */
+    border: 1px solid rgba(100, 149, 237, 0.2); /* Легкая рамка */
+    opacity: 0; /* Начинаем с прозрачности */
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out; /* Плавное появление */
+}
+
+.modal-window.visible { /* Класс, который будет добавляться JS */
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.05); /* Легкое увеличение */
+}
+
+.modal-content {
+    text-align: center;
+    /* Убедимся, что iframe может расширяться */
+    height: 100%;
+}
+
+.modal-content iframe {
+    border: none;
+    border-radius: 8px; /* Скругленные углы у iframe */
+    width: 100%; /* iframe будет на всю ширину окна */
+    /* Высота iframe будет регулироваться JS, или можно оставить фиксированную */
+    height: 600px; /* Базовая высота, может быть переопределена JS */
+    display: block; /* Убирает лишнее пространство под iframe */
+}
+
+.close-modal-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 2.5em; /* Крупнее кнопка закрытия */
+    color: var(--light-text-color);
+    cursor: pointer;
+    transition: color 0.3s ease;
+    padding: 5px;
+}
+
+.close-modal-btn:hover {
+    color: var(--accent-color);
+}
+
+/* --- Анимация появления секций при скролле --- */
+.about-section, .message-section, .contact-section, .info-block {
+    opacity: 0;
+    transform: translateY(30px); /* Начинаем чуть ниже */
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.about-section.visible, .message-section.visible, .contact-section.visible, .info-block.visible {
+    opacity: 1;
+    transform: translateY(0); /* Приходит в исходное положение */
+}
+
 /* --- Адаптивность --- */
 @media (max-width: 992px) {
     .hero-section h2 { font-size: 2.3em; }
@@ -451,6 +535,8 @@ body {
     .info-block { padding: 15px; }
     .info-block .fas { font-size: 2em; }
     .info-block h3 { font-size: 1.2em; }
+    .modal-window { padding: 30px; width: 95%; max-width: 600px; }
+    .close-modal-btn { font-size: 2em; top: 10px; right: 10px; }
 }
 
 @media (max-width: 768px) {
@@ -467,4 +553,7 @@ body {
     .about-section, .message-section, .contact-section { margin: 40px auto; }
     .contact-info { grid-template-columns: 1fr; }
     .site-footer .container { flex-direction: column; gap: 15px; }
+    .modal-window { padding: 25px; }
+    .close-modal-btn { font-size: 2em; top: 10px; right: 10px; }
+    .modal-content iframe { height: 400px; } /* Уменьшаем высоту iframe на мобильных */
 }
