@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Анонимная психологическая помощь</title>
+    <title>Анонимная психологическая помощь | Душа</title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,13 +20,14 @@
     <header class="site-header">
         <div class="container">
             <div class="logo-area">
-                <i class="fas fa-feather-alt logo-icon"></i> <!-- Иконка пера/легкости -->
-                <a href="index.html" class="site-title">Душа</a> <!-- Более подходящее название -->
+                <!-- Иконка пера или чего-то успокаивающего -->
+                <i class="fas fa-feather-alt logo-icon"></i>
+                <a href="index.html" class="site-title">Душа</a>
             </div>
             <nav class="site-nav">
                 <ul>
                     <li><a href="#about">О нас</a></li>
-                    <li><a href="#contact">Контакты</a></li>
+                    <li><a href="#contact">Как это работает</a></li>
                 </ul>
             </nav>
             <button class="mobile-nav-toggle" aria-label="Toggle navigation">
@@ -39,18 +40,18 @@
         <div class="hero-overlay"></div>
         <div class="container">
             <h2>Найди слова, когда трудно</h2>
-            <p>Анонимное пространство для твоих мыслей, переживаний и вопросов.</p>
+            <p>Анонимное пространство для твоих мыслей, переживаний и вопросов. Мы здесь, чтобы выслушать.</p>
+            <!-- Ссылка на якорь, ведущий к кнопке отправки -->
             <a href="#write-message" class="btn btn-primary">Написать анонимно</a>
         </div>
     </section>
 
     <main class="container">
         <section id="about" class="about-section">
-            <h2><i class="fas fa-hand-holding-heart"></i> Добро пожаловать</h2>
+            <h2><i class="fas fa-hand-holding-heart"></i> Наше пространство</h2>
             <div class="about-content">
-                <!-- Вместо фото преподавателя, можно что-то более символичное или текст -->
                 <p>
-                    Мы создали это пространство, чтобы ты мог свободно выразить свои мысли, не опасаясь осуждения. Здесь ты можешь быть услышанным, получить поддержку или просто выговориться. Мы верим, что слова имеют силу, а анонимность помогает им обрести свободу.
+                    Мы создали это место, чтобы предложить тебе безопасное и анонимное пространство для выражения своих мыслей и чувств. Здесь ты можешь поделиться тем, что тебя беспокоит, получить поддержку или просто выговориться. Мы верим, что слова имеют силу, а анонимность помогает им обрести свободу. Твоя конфиденциальность — наш главный приоритет.
                 </p>
             </div>
         </section>
@@ -58,8 +59,9 @@
         <section id="write-message" class="message-section">
             <h2><i class="fas fa-pen-fancy"></i> Напиши нам</h2>
             <p>Поделись тем, что тебя волнует. Всё анонимно и конфиденциально.</p>
-            <button id="openFormBtn" class="btn btn-secondary">
-                <i class="fas fa-envelope-open-text"></i> Открыть форму для письма
+            <!-- Кнопка, которая будет открывать Яндекс Форму в новой вкладке -->
+            <button id="openYandexFormBtn" class="btn btn-secondary">
+                <i class="fas fa-external-link-alt"></i> Отправить анонимное письмо
             </button>
         </section>
 
@@ -74,12 +76,12 @@
                 <div class="info-block">
                     <i class="fas fa-paper-plane"></i>
                     <h3>Конфиденциальность</h3>
-                    <p>Сообщения обрабатываются с максимальной осторожностью.</p>
+                    <p>Сообщения обрабатываются с максимальной осторожностью. Мы не собираем твои личные данные.</p>
                 </div>
                 <div class="info-block">
                     <i class="fas fa-reply"></i>
                     <h3>Ответ</h3>
-                    <p>Если потребуется, мы постараемся ответить, также анонимно.</p>
+                    <p>Если потребуется, мы ответить, также анонимно.</p>
                 </div>
             </div>
         </section>
@@ -91,24 +93,6 @@
             <p>Мы заботимся о твоей конфиденциальности.</p>
         </div>
     </footer>
-
-    <!-- Модальное окно для формы -->
-    <div id="modalOverlay" class="modal-overlay"></div>
-    <div id="messageModal" class="modal-window">
-        <button id="closeModalBtn" class="close-modal-btn">&times;</button>
-        <div class="modal-content">
-            <!-- !!! ВАЖНО: ВСТАВЬТЕ СЮДА iframe С ВАШЕЙ ЯНДЕКС.ФОРМОЙ !!! -->
-            <iframe
-                src="https://forms.yandex.ru/u/6914d45f95add53f7d703272"
-                frameborder="0"
-                allowtransparency="true"
-                scrolling="no"
-                width="100%"
-                height="600">
-                Загрузка формы…
-            </iframe>
-        </div>
-    </div>
 
     <script src="script.js"></script>
 </body>
