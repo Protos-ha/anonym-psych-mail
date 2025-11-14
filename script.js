@@ -106,8 +106,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 entry.target.classList.add('visible');
             }
         });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.1 }); // Анимация начинается, когда элемент виден на 10%
 
+    // Находим все секции и блоки, к которым хотим применить анимацию
     document.querySelectorAll('.about-section, .message-section, .contact-section, .info-block').forEach(section => {
         observer.observe(section);
     });
