@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (openYandexFormBtn) {
         openYandexFormBtn.addEventListener('click', function() {
             // !!! ВАЖНО: Замените 'URL_ЯНДЕКС_ФОРМЫ_ДЛЯ_ССЫЛКИ' на вашу реальную ссылку на Яндекс Форму !!!
-            const YANDEX_FORM_URL = 'URL_ЯНДЕКС_ФОРМЫ_ДЛЯ_ССЫЛКИ'; // <<<--- ЗАМЕНИТЕ ЭТО!
+            const YANDEX_FORM_URL = 'https://forms.yandex.ru/u/6914d45f95add53f7d703272'; // <<<--- ЗАМЕНИТЕ ЭТО!
             window.open(YANDEX_FORM_URL, '_blank');
         });
     }
