@@ -2,15 +2,60 @@
 
 document.addEventListener('DOMContentLoaded', function() {
 
-    // --- Кнопка, открывающая Яндекс Форму в новой вкладке ---
-    const openYandexFormBtn = document.getElementById('openYandexFormBtn');
-    if (openYandexFormBtn) {
-        openYandexFormBtn.addEventListener('click', function() {
-            // !!! ВАЖНО: Замените 'URL_ЯНДЕКС_ФОРМЫ_ДЛЯ_ССЫЛКИ' на вашу реальную ссылку на Яндекс Форму !!!
-            const YANDEX_FORM_URL = 'https://forms.yandex.ru/u/6914d45f95add53f7d703272'; // <<<--- ЗАМЕНИТЕ ЭТО!
-            window.open(YANDEX_FORM_URL, '_blank');
-        });
+    // --- Модальное окно ---
+    const modalOverlay = document.getElementById('modalOverlay');
+    const messageModal = document.getElementById('messageModal');
+    const openFormModalBtn = document.getElementById('openFormModalBtn'); // ID кнопки из index.html
+    const closeModalBtn = document.getElementById('closeModalBtn');
+
+    // Функция открытия модального окна
+    function openModal() {
+        if (messageModal && modalOverlay) {
+            messageModal.style.display = 'block';
+            modalOverlay.style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Запретить прокрутку страницы
+
+            // Добавляем класс 'visible' для анимации появления
+            requestAnimationFrame(() => {
+                messageModal.classList.add('visible');
+            });
+        }
     }
+
+    // Функция закрытия модального окна
+    function closeModal() {
+        if (messageModal && modalOverlay) {
+            messageModal.classList.remove('visible'); // Убираем класс для анимации
+            // Используем setTimeout, чтобы анимация успела отработать перед полным скрытием
+            setTimeout(() => {
+                messageModal.style.display = 'none';
+                modalOverlay.style.display = 'none';
+                document.body.style.overflow = ''; // Разрешить прокрутку
+            }, 400); // Длительность анимации (совпадает с transition в CSS)
+        }
+    }
+
+    // Обработчик для кнопки открытия модального окна
+    if (openFormModalBtn) {
+        openFormModalBtn.addEventListener('click', openModal);
+    }
+
+    // Обработчик для кнопки закрытия
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', closeModal);
+    }
+
+    // Закрытие по клику на подложку
+    if (modalOverlay) {
+        modalOverlay.addEventListener('click', closeModal);
+    }
+
+    // Закрытие по нажатию Escape
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && messageModal && messageModal.style.display === 'block') {
+            closeModal();
+        }
+    });
 
     // --- Плавная прокрутка для навигации ---
     const navLinks = document.querySelectorAll('.site-nav a[href^="#"]');
@@ -61,9 +106,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 entry.target.classList.add('visible');
             }
         });
-    }, { threshold: 0.1 }); // Анимация начинается, когда элемент виден на 10%
+    }, { threshold: 0.1 });
 
-    // Находим все секции и блоки, к которым хотим применить анимацию
     document.querySelectorAll('.about-section, .message-section, .contact-section, .info-block').forEach(section => {
         observer.observe(section);
     });
