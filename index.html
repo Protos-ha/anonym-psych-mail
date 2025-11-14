@@ -3,57 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Анонимная психологическая почта</title>
+    <title>Анонимная психологическая помощь</title>
 
-    <!-- Подключение Google Fonts -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 
-    <!-- Подключение Font Awesome для иконок -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-    <!-- Подключение вашего CSS файла -->
+    <!-- Ваш CSS файл -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <div class="header-section">
-            <i class="fas fa-feather-alt header-icon"></i>
-            <h1>Анонимное письмо</h1>
-            <p class="subtitle">
-                Здесь вы можете поделиться своими мыслями, переживаниями или задать вопросы.
-                Ваша личность будет сохранена в тайне.
-            </p>
-        </div>
-
-        <div class="form-area">
-            <!-- Кнопка, которая откроет Яндекс Форму -->
-            <button id="openFormBtn" class="cta-button">
-                <i class="fas fa-pen-fancy"></i> Написать анонимное письмо
+    <header class="site-header">
+        <div class="container">
+            <div class="logo-area">
+                <i class="fas fa-feather-alt logo-icon"></i> <!-- Иконка пера/легкости -->
+                <a href="index.html" class="site-title">Твой Голос</a> <!-- Более подходящее название -->
+            </div>
+            <nav class="site-nav">
+                <ul>
+                    <li><a href="#about">О нас</a></li>
+                    <li><a href="#contact">Контакты</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-nav-toggle" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
             </button>
         </div>
+    </header>
 
-        <div class="instructions">
-            <h3><i class="fas fa-info-circle"></i> Как это работает:</h3>
-            <ul>
-                <li><i class="fas fa-hand-point-right"></i> Нажмите на кнопку, чтобы перейти к форме.</li>
-                <li><i class="fas fa-user-tag"></i> Введите желаемый <strong>никнейм</strong> (он будет виден мне).</li>
-                <li><i class="fas fa-envelope-open-text"></i> Напишите свое <strong>письмо</strong>.</li>
-                <li><i class="fas fa-paper-plane"></i> Нажмите "Отправить".</li>
-            </ul>
-            <p class="assurance">
-                <i class="fas fa-shield-alt"></i> Ваша конфиденциальность — наш главный приоритет.
-            </p>
+    <section class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <h2>Найди слова, когда их трудно найти</h2>
+            <p>Анонимное пространство для твоих мыслей, переживаний и вопросов.</p>
+            <a href="#write-message" class="btn btn-primary">Написать анонимно</a>
+        </div>
+    </section>
+
+    <main class="container">
+        <section id="about" class="about-section">
+            <h2><i class="fas fa-hand-holding-heart"></i> Добро пожаловать</h2>
+            <div class="about-content">
+                <!-- Вместо фото преподавателя, можно что-то более символичное или текст -->
+                <p>
+                    Мы создали это пространство, чтобы ты мог свободно выразить свои мысли, не опасаясь осуждения. Здесь ты можешь быть услышанным, получить поддержку или просто выговориться. Мы верим, что слова имеют силу, и анонимность помогает им обрести свободу.
+                </p>
+            </div>
+        </section>
+
+        <section id="write-message" class="message-section">
+            <h2><i class="fas fa-pen-fancy"></i> Напиши нам</h2>
+            <p>Поделись тем, что тебя волнует. Всё анонимно и конфиденциально.</p>
+            <button id="openFormBtn" class="btn btn-secondary">
+                <i class="fas fa-envelope-open-text"></i> Открыть форму для письма
+            </button>
+        </section>
+
+        <section id="contact" class="contact-section">
+            <h2><i class="fas fa-info-circle"></i> Как это работает</h2>
+            <div class="contact-info">
+                <div class="info-block">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Анонимность</h3>
+                    <p>Твоя личность защищена. Используется только указанный тобой никнейм.</p>
+                </div>
+                <div class="info-block">
+                    <i class="fas fa-paper-plane"></i>
+                    <h3>Конфиденциальность</h3>
+                    <p>Сообщения обрабатываются с максимальной осторожностью.</p>
+                </div>
+                <div class="info-block">
+                    <i class="fas fa-reply"></i>
+                    <h3>Ответ</h3>
+                    <p>Если потребуется, я постараюсь ответить, также анонимно.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2023 Твой Голос. Все права защищены.</p>
+            <p>Мы заботимся о твоей конфиденциальности.</p>
+        </div>
+    </footer>
+
+    <!-- Модальное окно для формы -->
+    <div id="modalOverlay" class="modal-overlay"></div>
+    <div id="messageModal" class="modal-window">
+        <button id="closeModalBtn" class="close-modal-btn">&times;</button>
+        <div class="modal-content">
+            <!-- !!! ВАЖНО: ВСТАВЬТЕ СЮДА iframe С ВАШЕЙ ЯНДЕКС.ФОРМОЙ !!! -->
+            <iframe
+                src="URL_ЯНДЕКС_ФОРМЫ_ДЛЯ_ВСТРАИВАНИЯ"
+                frameborder="0"
+                allowtransparency="true"
+                scrolling="no"
+                width="100%"
+                height="600">
+                Загрузка формы…
+            </iframe>
         </div>
     </div>
 
-    <script>
-        document.getElementById('openFormBtn').addEventListener('click', function() {
-            // !!! ВАЖНО: Замени 'URL_ЯНДЕКС_ФОРМЫ_ДЛЯ_ССЫЛКИ' на реальную ссылку на твою Яндекс Форму !!!
-            // Пример: 'https://yandex.ru/forms/embed/ВАШ_ID_ФОРМЫ'
-            window.open('https://forms.yandex.ru/u/6914d45f95add53f7d703272', '_blank');
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
