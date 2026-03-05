@@ -1,115 +1,109 @@
-// script.js
+document.addEventListener('DOMContentLoaded', () => {
+    const gameArea = document.getElementById('game-area');
+    const scoreDisplay = document.getElementById('score');
+    const gameScreen = document.getElementById('game-screen');
+    const congratsScreen = document.getElementById('congratulations-screen');
+    
+    const TARGET_SCORE = 8;
+    let currentScore = 0;
+    let dropInterval = 1000; // Интервал начала падения (1 секунда)
+    let gameTimer;
 
-document.addEventListener('DOMContentLoaded', function() {
+    const heartEmoji = '❤️';
+    const flowerEmoji = '🌸';
+    
+    // Инициализация
+    updateScoreDisplay();
+    startGame();
 
-    // --- Модальное окно ---
-    const modalOverlay = document.getElementById('modalOverlay');
-    const messageModal = document.getElementById('messageModal');
-    const openFormModalBtn = document.getElementById('openFormModalBtn'); // ID кнопки из index.html
-    const closeModalBtn = document.getElementById('closeModalBtn');
+    function updateScoreDisplay() {
+        scoreDisplay.textContent = `${currentScore} / ${TARGET_SCORE}`;
+    }
 
-    // Функция открытия модального окна
-    function openModal() {
-        if (messageModal && modalOverlay) {
-            messageModal.style.display = 'block';
-            modalOverlay.style.display = 'block';
-            document.body.style.overflow = 'hidden'; // Запретить прокрутку страницы
+    function startGame() {
+        // Очищаем старые элементы, если они есть
+        gameArea.innerHTML = '';
+        currentScore = 0;
+        updateScoreDisplay();
+        
+        // Запускаем цикл генерации объектов
+        gameTimer = setInterval(createFallingItem, dropInterval);
+    }
 
-            // Добавляем класс 'visible' для анимации появления
-            requestAnimationFrame(() => {
-                messageModal.classList.add('visible');
-            });
+    function createFallingItem() {
+        if (currentScore >= TARGET_SCORE) {
+            clearInterval(gameTimer);
+            return;
         }
-    }
 
-    // Функция закрытия модального окна
-    function closeModal() {
-        if (messageModal && modalOverlay) {
-            messageModal.classList.remove('visible'); // Убираем класс для анимации
-            // Используем setTimeout, чтобы анимация успела отработать перед полным скрытием
-            setTimeout(() => {
-                messageModal.style.display = 'none';
-                modalOverlay.style.display = 'none';
-                document.body.style.overflow = ''; // Разрешить прокрутку
-            }, 400); // Длительность анимации (совпадает с transition в CSS)
-        }
-    }
+        const item = document.createElement('div');
+        
+        // Случайно выбираем, что будет падать
+        const isHeart = Math.random() < 0.8; // 80% шанс, что это будет сердечко
+        
+        item.textContent = isHeart ? heartEmoji : flowerEmoji;
+        item.classList.add('falling-item');
+        
+        // Устанавливаем начальные стили
+        const startX = Math.random() * (gameArea.clientWidth - 50); // Начальная позиция по горизонтали
+        item.style.left = `${startX}px`;
+        item.style.top = `-50px`; // Начинаем выше области видимости
+        item.dataset.caught = 'false'; // Флаг, поймано ли сердце
 
-    // Обработчик для кнопки открытия модального окна
-    if (openFormModalBtn) {
-        openFormModalBtn.addEventListener('click', openModal);
-    }
+        // Устанавливаем анимацию (продолжительность падения зависит от высоты)
+        const fallDuration = 4 + Math.random() * 3; // Падение от 4 до 7 секунд
+        item.style.animation = `fall ${fallDuration}s linear forwards`;
 
-    // Обработчик для кнопки закрытия
-    if (closeModalBtn) {
-        closeModalBtn.addEventListener('click', closeModal);
-    }
+        gameArea.appendChild(item);
 
-    // Закрытие по клику на подложку
-    if (modalOverlay) {
-        modalOverlay.addEventListener('click', closeModal);
-    }
+        // 1. Обработка клика (попытка поймать)
+        item.addEventListener('click', () => {
+            if (isHeart && item.dataset.caught === 'false') {
+                catchItem(item);
+            } else if (!isHeart) {
+                // Если это цветок, он просто исчезает, ничего не засчитывая
+                item.remove();
+            }
+        });
 
-    // Закрытие по нажатию Escape
-    document.addEventListener('keydown', function(event) {
-        if (event.key === 'Escape' && messageModal && messageModal.style.display === 'block') {
-            closeModal();
-        }
-    });
-
-    // --- Плавная прокрутка для навигации ---
-    const navLinks = document.querySelectorAll('.site-nav a[href^="#"]');
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-                // Закрываем мобильное меню после клика
-                const mobileNav = document.querySelector('.site-nav');
-                const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
-                if (mobileNav && mobileNavToggle) {
-                    mobileNav.classList.remove('active');
-                    mobileNavToggle.querySelector('i').classList.remove('fa-times');
-                    mobileNavToggle.querySelector('i').classList.add('fa-bars');
+        // 2. Проверка, долетел ли объект до низа
+        item.addEventListener('animationend', () => {
+            if (item.dataset.caught === 'false') {
+                // Если объект долетел до низа и не был пойман (и это было сердце)
+                if (isHeart) {
+                    // Можно добавить штраф или просто ничего не делать
                 }
-            }
-        });
-    });
-
-    // --- Мобильное меню ---
-    const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
-    const mobileNav = document.querySelector('.site-nav');
-
-    if (mobileNavToggle && mobileNav) {
-        mobileNavToggle.addEventListener('click', function() {
-            mobileNav.classList.toggle('active');
-            const icon = this.querySelector('i');
-            if (mobileNav.classList.contains('active')) {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times');
-            } else {
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
+                item.remove();
             }
         });
     }
 
-    // --- Анимация появления блоков при скролле ---
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, { threshold: 0.1 }); // Анимация начинается, когда элемент виден на 10%
+    function catchItem(itemElement) {
+        if (itemElement.dataset.caught === 'true') return;
 
-    // Находим все секции и блоки, к которым хотим применить анимацию
-    document.querySelectorAll('.about-section, .message-section, .contact-section, .info-block').forEach(section => {
-        observer.observe(section);
-    });
+        itemElement.dataset.caught = 'true';
+        currentScore++;
+        updateScoreDisplay();
+
+        // Визуальное подтверждение поимки
+        itemElement.style.transition = 'transform 0.3s ease-out, opacity 0.3s ease-out';
+        itemElement.style.transform = 'scale(1.5)';
+        itemElement.style.opacity = '0';
+        
+        // Удаляем элемент через короткое время
+        setTimeout(() => {
+            itemElement.remove();
+            checkWinCondition();
+        }, 300);
+    }
+
+    function checkWinCondition() {
+        if (currentScore >= TARGET_SCORE) {
+            clearInterval(gameTimer);
+            
+            // Скрываем игру и показываем поздравление
+            gameScreen.classList.add('hidden');
+            congratsScreen.classList.remove('hidden');
+        }
+    }
 });
